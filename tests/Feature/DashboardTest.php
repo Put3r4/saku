@@ -12,5 +12,7 @@ test('authenticated users can visit the dashboard', function () {
     $this->actingAs($user);
 
     $response = $this->get(route('dashboard'));
-    $response->assertOk();
+    $response->assertRedirect(route('student.dashboard'));
+
+    $this->get(route('student.dashboard'))->assertOk();
 });

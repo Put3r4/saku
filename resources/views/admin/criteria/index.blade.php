@@ -14,6 +14,31 @@
             <span>Tambah Kriteria</span>
         </a>
     </div>
+
+    {{-- Indikator Total Bobot --}}
+    <div class="mb-6 p-4 rounded-xl shadow-sm border @if(abs($totalBobot - 1.00) < 0.001) bg-green-50 border-green-300 @elseif($totalBobot > 1.00) bg-red-50 border-red-300 @else bg-yellow-50 border-yellow-300 @endif">
+        <div class="flex items-center justify-between">
+            <div>
+                <h4 class="font-bold text-sm @if(abs($totalBobot - 1.00) < 0.001) text-green-700 @elseif($totalBobot > 1.00) text-red-700 @else text-yellow-700 @endif">
+                    Total Bobot Kriteria Saat Ini: {{ number_format($totalBobot, 4) }} / 1.00
+                </h4>
+                <p class="text-xs mt-1 @if(abs($totalBobot - 1.00) < 0.001) text-green-600 @elseif($totalBobot > 1.00) text-red-600 @else text-yellow-600 @endif">
+                    @if(abs($totalBobot - 1.00) < 0.001)
+                        ✓ Total bobot sudah sempurna! Sistem SAW siap digunakan.
+                    @elseif($totalBobot > 1.00)
+                        ✗ Total bobot melebihi 1.00! Harap kurangi bobot beberapa kriteria.
+                    @else
+                        ⚠ Sisa kuota bobot: {{ number_format(1.00 - $totalBobot, 4) }}. Tambahkan kriteria untuk melengkapi total 1.00.
+                    @endif
+                </p>
+            </div>
+            <div class="text-right">
+                <div class="text-2xl font-bold @if(abs($totalBobot - 1.00) < 0.001) text-green-600 @elseif($totalBobot > 1.00) text-red-600 @else text-yellow-600 @endif">
+                    {{ number_format($totalBobot * 100, 2) }}%
+                </div>
+            </div>
+        </div>
+    </div>
     @if(session('success'))
         <div class="mb-6 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 text-sm font-semibold rounded-r-xl shadow-sm flex items-center justify-between">
             <span>{{ session('success') }}</span>
@@ -45,8 +70,12 @@
                         </td>
                         <td class="py-4 px-6 text-sm text-saku-dark font-medium">{{ $item->bobot }}</td>
                         <td class="py-4 px-6 text-sm text-right space-x-2">
-                            <button class="text-saku-muted hover:text-saku-accent transition">Edit</button>
-                            <button class="text-saku-muted hover:text-red-500 transition">Hapus</button>
+                            <a href="{{ route('admin.criteria.edit', $item) }}" class="text-saku-muted hover:text-saku-accent transition font-semibold">Edit</a>
+                            <form action="{{ route('admin.criteria.destroy', $item) }}" method="POST" class="inline-block" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kriteria {{ $item->kode }} ({{ $item->nama_kriteria }})? Data evaluasi terkait kriteria ini juga akan terhapus.')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-saku-muted hover:text-red-500 transition font-semibold">Hapus</button>
+                            </form>
                         </td>
                     </tr>
                 @empty

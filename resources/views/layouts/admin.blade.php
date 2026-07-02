@@ -49,14 +49,14 @@
         <span>Kelola Kriteria & Bobot</span>
     </a>
 
-    <a href="#" 
+    <a href="{{ route('admin.menu.index') }}" 
        class="flex items-center px-4 py-3 rounded-lg font-semibold transition {{ request()->routeIs('admin.menu.*') ? 'bg-saku-accent text-white shadow-md' : 'text-saku-light hover:bg-saku-muted/20 hover:text-white' }}">
-        <span>Data Menu & Harga</span>
+        <span>Kelola Menu</span>
     </a>
 
-    <a href="#" 
+    <a href="{{ route('admin.matrix.index') }}" 
        class="flex items-center px-4 py-3 rounded-lg font-semibold transition {{ request()->routeIs('admin.matrix.*') ? 'bg-saku-accent text-white shadow-md' : 'text-saku-light hover:bg-saku-muted/20 hover:text-white' }}">
-        <span>Matriks Nilai (SAW)</span>
+        <span>Input Matriks</span>
     </a>
     
 </nav>

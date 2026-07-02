@@ -15,7 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Bind SAW Service Interface
+        $this->app->bind(
+            \App\Contracts\SAWServiceInterface::class,
+            \App\Services\SAWCalculationService::class
+        );
     }
 
     /**

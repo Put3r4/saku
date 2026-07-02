@@ -37,9 +37,9 @@
             SAKU<span class="text-saku-accent">.</span>
         </div>
         <div class="hidden md:flex space-x-10 text-base font-semibold">
-            <a href="#" class="text-saku-dark border-b-2 border-saku-accent pb-1">Beranda</a>
-            <a href="#" class="text-saku-muted hover:text-saku-dark transition duration-200">Tentang SAW</a>
-            <a href="#" class="text-saku-muted hover:text-saku-dark transition duration-200">Daftar Menu</a>
+            <a href="{{ route('home') }}" class="text-saku-dark border-b-2 border-saku-accent pb-1">Beranda</a>
+            <a href="{{ route('tentang-saw') }}" class="text-saku-muted hover:text-saku-dark transition duration-200">Tentang SAW</a>
+            <a href="{{ route('daftar-menu') }}" class="text-saku-muted hover:text-saku-dark transition duration-200">Daftar Menu</a>
         </div>
       <div class="flex items-center space-x-4">
     @guest
@@ -82,10 +82,22 @@
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4">
-                <a href="#" class="px-8 py-4 bg-saku-accent text-white text-center rounded-xl font-bold text-lg shadow-lg hover:bg-saku-primary transform hover:-translate-y-1 transition duration-300">
-                    Mulai Hitung Budget
-                </a>
-                <a href="#" class="px-8 py-4 bg-white text-saku-dark text-center rounded-xl font-bold text-lg shadow-md border border-gray-200 hover:border-saku-muted transition duration-300">
+                @guest
+                    <a href="{{ route('login') }}" class="px-8 py-4 bg-saku-accent text-white text-center rounded-xl font-bold text-lg shadow-lg hover:bg-saku-primary transform hover:-translate-y-1 transition duration-300">
+                        Mulai Hitung Budget
+                    </a>
+                @else
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('admin.dashboard') }}" class="px-8 py-4 bg-saku-accent text-white text-center rounded-xl font-bold text-lg shadow-lg hover:bg-saku-primary transform hover:-translate-y-1 transition duration-300">
+                            Dashboard Admin
+                        </a>
+                    @else
+                        <a href="{{ route('student.dashboard') }}" class="px-8 py-4 bg-saku-accent text-white text-center rounded-xl font-bold text-lg shadow-lg hover:bg-saku-primary transform hover:-translate-y-1 transition duration-300">
+                            Mulai Hitung Budget
+                        </a>
+                    @endif
+                @endguest
+                <a href="#tentang" class="px-8 py-4 bg-white text-saku-dark text-center rounded-xl font-bold text-lg shadow-md border border-gray-200 hover:border-saku-muted transition duration-300">
                     Pelajari Sistem
                 </a>
             </div>

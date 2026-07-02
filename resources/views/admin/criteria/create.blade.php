@@ -13,7 +13,10 @@
 
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden max-w-3xl">
         <div class="p-8">
-            <h3 class="text-xl font-bold text-saku-dark mb-6">Formulir Kriteria</h3>
+            <h3 class="text-xl font-bold text-saku-dark mb-2">Formulir Kriteria</h3>
+            <div class="mb-6 p-3 bg-blue-50 border-l-4 border-blue-500 text-blue-700 text-sm rounded-r-xl">
+                <strong>Info:</strong> Sisa kuota bobot yang dapat digunakan: <strong>{{ number_format($sisaBobot, 4) }}</strong>
+            </div>
 
             <form action="{{ route('admin.criteria.store') }}" method="POST">
                 @csrf

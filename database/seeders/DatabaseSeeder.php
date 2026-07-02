@@ -25,5 +25,11 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('mahasiswa123'),
             'role' => 'mahasiswa',
         ]);
+
+        // Seed criteria for SAW method
+        $this->call(CriterionSeeder::class);
+
+        // Seed menu items with evaluations
+        $this->call(MenuSeeder::class);
     }
 }

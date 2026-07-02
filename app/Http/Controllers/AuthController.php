@@ -25,7 +25,7 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard');
             }
 
-            return redirect()->route('mahasiswa.dashboard');
+            return redirect()->route('student.dashboard');
         }
 
         return back()->withErrors([
